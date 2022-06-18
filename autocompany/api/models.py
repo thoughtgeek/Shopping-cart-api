@@ -8,6 +8,8 @@ import string
 from django.db import models
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
+from django.utils.timezone import now
+from django.contrib.auth.models import User
 
 
 class Product(models.Model):
@@ -37,6 +39,8 @@ class Cart(models.Model):
     This is the cart where we store the items ordered
     """
 
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="cart")
+    cart_creation_time = models.DateTimeField(null=True, blank=True, default=now)
     delivery_time = models.DateTimeField(null=True, blank=True)
     order_completed = models.BooleanField(default=False)
 
@@ -59,32 +63,35 @@ class CartItem(models.Model):
         return f"Item-{self.product.name} : Quantity-{self.quantity}"
 
 
-@receiver(pre_save, sender=Cart)
-def update_stock_on_cart_save(sender, instance, **kwargs):
+@receiver(pre_save, sender=CartItem)
+def update_stock_for_new_cart(sender, instance, **kwargs):
     # If its a new cart and order is complete remove stock
-    if instance.pk is None and instance.order_completed:
-        update_stock(instance.items.all())
+    if instance.pk is None and instance.cart.order_completed:
+        update_stock(instance)
 
+@receiver(pre_save, sender=Cart)
+def update_stock_for_existing_carts(sender, instance, **kwargs):
     # If existing cart is modified
-    new_cart = instance
-    old_cart = Cart.objects.get(pk=instance.pk)
+    if instance.pk is not None:
+        new_cart = instance
+        old_cart = Cart.objects.get(pk=instance.pk)
 
-    # If order is reversed, add stock back
-    if old_cart.order_completed and not new_cart.order_completed:
-        update_stock(new_cart.items.all(), add_stock=True)
+        # If order is reversed, add stock back
+        if old_cart.order_completed and not new_cart.order_completed:
+            for item in instance.items.all():
+                update_stock(item, add_stock=True)
 
-    # If old cart order complete remove stock
-    elif new_cart.order_completed and not old_cart.order_completed:
-        update_stock(new_cart.items.all())
+        # If old cart order complete remove stock
+        elif new_cart.order_completed and not old_cart.order_completed:
+            for item in instance.items.all():
+                update_stock(item)
 
+def update_stock(item, add_stock=False):
+        product = item.product
 
-def update_stock(cartItems, add_stock=False):
-        for item in cartItems:
-            product = item.product
+        if add_stock:
+            product.stock = product.stock + item.quantity
+        else:
+            product.stock = product.stock - item.quantity
 
-            if add_stock:
-                product.stock = product.stock + item.quantity
-            else:
-                product.stock = product.stock - item.quantity
-
-            product.save()
+        product.save()

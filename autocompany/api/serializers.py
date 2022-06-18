@@ -20,7 +20,7 @@ class CartSerializer(WritableNestedModelSerializer):
 
     class Meta:
         model = Cart
-        fields = ['pk', 'delivery_time', 'order_completed', 'items']
+        fields = ['pk', 'cart_creation_time', 'delivery_time', 'order_completed', 'items']
 
     def validate_items(self, data):
         for item in data:
@@ -29,6 +29,11 @@ class CartSerializer(WritableNestedModelSerializer):
                 e.status_code = status.HTTP_400_BAD_REQUEST
                 raise e
         return data
+
+    def create(self, validated_data):
+        request = self.context.get("request")
+        validated_data['user'] = request.user
+        return super(CartSerializer, self).create(validated_data)
 
 
 class ProductListSerializer(serializers.ModelSerializer):
