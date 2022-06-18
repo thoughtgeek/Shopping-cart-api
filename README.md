@@ -75,7 +75,7 @@ X-Frame-Options: DENY
 HTTP Method: GET \
 API url: /api/product/&lt;pk>/
 
-
+Example:
 ```
 $ http localhost:8000/api/product/1/
 HTTP/1.1 200 OK
