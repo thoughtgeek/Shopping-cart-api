@@ -17,6 +17,7 @@ SEED_PRODUCTS = [
         "year": datetime(2020, 1, 1),
         "stock": 10,
         "price": 1000,
+        "id": 1,
     },
     {
         "name": "Goodyear tyres",
@@ -25,6 +26,7 @@ SEED_PRODUCTS = [
         "year": datetime(2009, 1, 1),
         "stock": 5,
         "price": 600,
+        "id": 2,
     },
     {
         "name": "Wagner Brake Shoes",
@@ -33,6 +35,7 @@ SEED_PRODUCTS = [
         "year": datetime(2014, 1, 1),
         "stock": 100,
         "price": 50,
+        "id": 3,
     },
     {
         "name": "Bosch Windshield Wiper",
@@ -41,6 +44,7 @@ SEED_PRODUCTS = [
         "year": datetime(2001, 1, 1),
         "stock": 3,
         "price": 100,
+        "id": 4,
     },
     {
         "name": "Michelin Tyres",
@@ -49,6 +53,7 @@ SEED_PRODUCTS = [
         "year": datetime(2021, 1, 1),
         "stock": 100,
         "price": 1500,
+        "id": 5,
     },
     {
         "name": "Mobis Shock Absorber",
@@ -57,6 +62,7 @@ SEED_PRODUCTS = [
         "year": datetime(2017, 1, 1),
         "stock": 50,
         "price": 700,
+        "id": 7,
     },
     {
         "name": "Lumax  Headlight",
@@ -65,6 +71,7 @@ SEED_PRODUCTS = [
         "year": datetime(2020, 1, 1),
         "stock": 200,
         "price": 900,
+        "id": 8,
     },
 ]
 
