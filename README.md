@@ -42,7 +42,7 @@ _(NOTE: Examples use this tool - https://httpie.io/)_</span>
 
 This is an unauthenticated API that can be used by the frontend to retrieve all product overviews and product details without requiring user log in.
 
- \
+
 ### Retrieve the overview of all products
 HTTP Method: GET \
 API url: /api/product/
