@@ -269,3 +269,39 @@ X-Frame-Options: DENY
 	"pk": 1
 }
 ```
+
+## Testing
+
+Run unit tests
+```
+$ sudo docker-compose exec web ./manage.py test -v 2
+```
+
+Coverage Report:
+```
+Name                                         Stmts   Miss  Cover
+----------------------------------------------------------------
+autocompany/__init__.py                          0      0   100%
+autocompany/api/__init__.py                      0      0   100%
+autocompany/api/admin.py                         1      0   100%
+autocompany/api/apps.py                          4      0   100%
+autocompany/api/migrations/0001_initial.py       8      0   100%
+autocompany/api/migrations/__init__.py           0      0   100%
+autocompany/api/models.py                       51      3    94%
+autocompany/api/seed_data.py                    14      0   100%
+autocompany/api/serializers.py                  33      3    91%
+autocompany/api/tests.py                        84      0   100%
+autocompany/api/views.py                        24      0   100%
+autocompany/asgi.py                              4      4     0%
+autocompany/settings.py                         20      5    75%
+autocompany/urls.py                             10      0   100%
+autocompany/wsgi.py                              4      4     0%
+----------------------------------------------------------------
+TOTAL                                          257     19    93%
+```
+
+Generate coverage report
+```
+$ sudo docker-compose exec web coverage run --source "autocompany" manage.py test -v 2 && coverage report
+```
+
