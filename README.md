@@ -107,8 +107,8 @@ This is an authenticated API(Token auth) to create, list and modify carts.
 
 ### Create a cart and add product to it without ordering them
 
-HTTP Method: POST
-API url: /api/cart/
+HTTP Method: POST \
+API url: /api/cart/ \
 Header: 'Authorization: Token &lt;UserTokenGenerated>’
 
 Example:
@@ -142,8 +142,8 @@ X-Frame-Options: DENY
 
 ### Remove a product from cart
 
-HTTP Method: PATCH
-API url: /api/cart/&lt;pk>/
+HTTP Method: PATCH \
+API url: /api/cart/&lt;pk>/ \
 Header: 'Authorization: Token &lt;UserTokenGenerated>’
 
 Example:
@@ -171,8 +171,8 @@ X-Frame-Options: DENY
 
 ### Add a product to a cart
 
-HTTP Method: PATCH
-API url: /api/cart/&lt;pk>/
+HTTP Method: PATCH \
+API url: /api/cart/&lt;pk>/ \
 Header: 'Authorization: Token &lt;UserTokenGenerated>’
 
 Example:
@@ -205,8 +205,8 @@ X-Frame-Options: DENY
 
 ### Order cart
 
-HTTP Method: PATCH
-API url: /api/cart/&lt;pk>/
+HTTP Method: PATCH \
+API url: /api/cart/&lt;pk>/ \
 Header: 'Authorization: Token &lt;UserTokenGenerated>’
 
 Example:
@@ -239,8 +239,8 @@ X-Frame-Options: DENY
 
 ### Set delivery date and time
 
-HTTP Method: PATCH
-API url: /api/cart/&lt;pk>/
+HTTP Method: PATCH \
+API url: /api/cart/&lt;pk>/ \
 Header: 'Authorization: Token &lt;UserTokenGenerated>’
 
 Example:
