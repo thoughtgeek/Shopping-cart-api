@@ -10,20 +10,29 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
+import os
+import environ
 from pathlib import Path
+
+env = environ.Env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+# Take environment variables from .env file
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
+
+# False if not in os.environ because of casting above
+DEBUG = env.bool('DEBUG', default=False)
+
+SECRET_KEY = env.str(
+    "SECRET_KEY", default="0p*t46v)n#s!kv(-94ar2m8@j@vj!9w0n0+r7ps3u+4oe9-f60"
+)
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-7+om-9__!v%1ud!6-wwkf0hs0x7v1myz9jn#e9d8n@v#1^qk3p"
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
@@ -73,14 +82,15 @@ TEMPLATES = [
 WSGI_APPLICATION = "autocompany.wsgi.application"
 
 
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
-        'HOST': 'db',
-        'PORT': '5432',
+        'NAME': env.str('DB_NAME', 'postgres'),
+        'USER': env.str('DB_USER', 'postgres'),
+        'PASSWORD': env.str('DB_PASSWORD', 'postgres'),
+        'HOST':  env.str('DB_HOST', 'db'),
+        'PORT': env.str('DB_PORT', '5432'),
     }
 }
 

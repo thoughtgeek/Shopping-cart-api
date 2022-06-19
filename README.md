@@ -270,6 +270,18 @@ X-Frame-Options: DENY
 }
 ```
 
+## Environment Variables
+The environment variables can be set in the .env file in the project root. The current variables available:
+```
+DB_NAME
+DB_USER
+DB_PASSWORD
+DB_HOST
+DB_PORT
+DEBUG
+SECRET_KEY
+```
+
 ## Testing
 
 Run unit tests

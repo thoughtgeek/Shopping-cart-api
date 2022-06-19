@@ -75,12 +75,14 @@ SEED_PRODUCTS = [
     },
 ]
 
+
 def seed_products():
     for product in SEED_PRODUCTS:
         new_product = Product(**product)
         new_product.save()
 
+
 def get_seed_user_token():
-    user = User.objects.create_user('tyler', 'tyler@awesometeam.nl', 'awesomepassword')
+    user = User.objects.create_user("tyler", "tyler@awesometeam.nl", "awesomepassword")
     token = Token.objects.create(user=user)
     return user, token.key

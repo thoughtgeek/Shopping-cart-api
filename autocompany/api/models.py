@@ -69,6 +69,7 @@ def update_stock_for_new_cart(sender, instance, **kwargs):
     if instance.pk is None and instance.cart.order_completed:
         update_stock(instance)
 
+
 @receiver(pre_save, sender=Cart)
 def update_stock_for_existing_carts(sender, instance, **kwargs):
     # If existing cart is modified
@@ -86,12 +87,13 @@ def update_stock_for_existing_carts(sender, instance, **kwargs):
             for item in instance.items.all():
                 update_stock(item)
 
+
 def update_stock(item, add_stock=False):
-        product = item.product
+    product = item.product
 
-        if add_stock:
-            product.stock = product.stock + item.quantity
-        else:
-            product.stock = product.stock - item.quantity
+    if add_stock:
+        product.stock = product.stock + item.quantity
+    else:
+        product.stock = product.stock - item.quantity
 
-        product.save()
+    product.save()
